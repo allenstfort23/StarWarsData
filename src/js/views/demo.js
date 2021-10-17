@@ -11,14 +11,11 @@ export const Demo = () => {
 	return (
 		<div className="container">
 			<ul className="list-group">
-				{store.demo.map((item, index) => {
+				{store.people.map((item, index) => {
 					return (
-						<li
-							key={index}
-							className="list-group-item d-flex justify-content-between"
-							style={{ background: item.background }}>
+						<li key={index} className="list-group-item d-flex justify-content-between">
 							<Link to={"/single/" + index}>
-								<span>Link to: {item.title}</span>
+								<span>Link to: {item.name + item.gender}</span>
 							</Link>
 							{// Conditional render example
 							// Check to see if the background is orange, if so, display the message
