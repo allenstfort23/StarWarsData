@@ -9,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			people: [],
 			planets: [],
 			favorites: [],
+			films: [],
 			Images: [],
 			demo: [
 				{
@@ -36,20 +37,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				/**
                     fetch().then().then(data => setStore({ "foo": data.bar }))
                 */
-				// const store = getStore();
-				// // const apiPeopleURL = "https://swapi.dev/api/people/";
-				// // const apiPlanetsURL = "https://swapi.dev/api/planets/";
-				// try {
-				// 	let people = await fetch(store.myURL + "/people/");
-				// 	let jsonPeople = await people.json();
-				// 	let planets = await fetch(store.myURL + "/planets/");
-				// 	let jsonPlanets = await planets.json();
-				// 	setStore({ people: jsonPeople.results });
-				// 	setStore({ planets: jsonPlanets.results });
-				// } catch (error) {
-				// 	console.log(error);
-				// }
-				// },
 				const apiPeopleURL = "https://swapi.dev/api/people/";
 				fetch(apiPeopleURL)
 					.then(res => res.json())
@@ -62,7 +49,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			},
 
-			fetchPlanets: () => {
+			fetchPlanets: async () => {
 				const apiPlanetsURL = "https://swapi.dev/api/planets/";
 				fetch(apiPlanetsURL)
 					.then(res => res.json())
@@ -71,7 +58,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 						res.results.forEach((items, index, arr) => {
 							planetsName.push(items);
 						});
-						console.log(setStore({ planets: planetsName }));
+						setStore({ planets: planetsName });
+					});
+			},
+
+			fetchFilms: async () => {
+				const apiFilmsURL = "https://swapi.dev/api/films/";
+				fetch(apiFilmsURL)
+					.then(res => res.json())
+					.then(res => {
+						let filmsInfo = [];
+						res.results.forEach((items, index, arr) => {
+							filmsInfo.push(items);
+						});
+						console.log(setStore({ films: filmsInfo }));
 					});
 			},
 			updateFavorites: item => {
